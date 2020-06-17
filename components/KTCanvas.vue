@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-card min-height="800" min-width="800" class="mx-auto">
-            <v-layout justify-center>
+            <v-layout>
                 <v-container>
                     <v-row>
                         <canvas id="canvas" width="600" height="600">
