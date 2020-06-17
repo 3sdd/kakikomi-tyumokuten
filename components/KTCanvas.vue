@@ -81,33 +81,6 @@ export default {
             // selectionColor:"red",
             // selectionLineWidth:2,
         });
-
-        // this.canvas.renderAll();
-        // const imgElement=document.getElementById("my-image");
-        // const imgInstance=new fabric.Image(imgElement,{
-        //     left:100,
-        //     top:100,
-        //     height:100,
-        //     width:100,
-        //     angle:30,
-        //     opacity:0.85
-        // });
-        // this.canvas.add(imgInstance);
-
-        // const canvas=this.canvas;
-        // fabric.Image.fromURL("araisan.png",function(oImg){
-        //     // oImg.scale(0.5)
-        //     canvas.add(oImg);
-        // })
-
-        const path=new fabric.Path("M 0 0 L 200 100 L 170 200 z");
-        path.set({left:120,top:120})
-        path.set({
-            fill:"red",
-            stroke:"green",
-            opacity:0.5
-        })
-        this.canvas.add(path);
     },
     data(){
         return {
@@ -137,10 +110,6 @@ export default {
                 this.canvas.renderAll();
             });
             
-        // fabric.Image.fromURL("araisan.png",function(oImg){
-        //     // oImg.scale(0.5)
-        //     canvas.add(oImg);
-        // })
         },
         createLine(){
             const line=new fabric.Line([50,100,200,100],{
