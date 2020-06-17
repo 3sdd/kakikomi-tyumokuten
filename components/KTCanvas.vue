@@ -12,10 +12,24 @@
                             <v-container>
                                 <v-row>
                                     <div>
-                                        <v-img  src="https://cdn.vuetifyjs.com/images/cards/store.jpg"
-                                            height="100"
-                                            width="100"
-                                        ></v-img>
+                                        <v-btn color="primary">
+                                            <img src="~/assets/icon-line.svg" width="32" height="32">
+                                        </v-btn>
+                                    </div>
+                                    <div>
+                                        <v-btn color="primary">
+                                            <img src="~/assets/icon-circle.svg" width="32" height="32">
+                                        </v-btn>
+                                    </div>
+                                    <div>
+                                        <v-btn color="primary">
+                                            <img src="~/assets/icon-rectangle.svg" width="32" height="32">
+                                        </v-btn>
+                                    </div>
+                                    <div>
+                                        <v-btn color="primary">
+                                            <img src="~/assets/icon-arrow.svg" width="32" height="32">
+                                        </v-btn>
                                     </div>
                                 </v-row>
                             </v-container>
