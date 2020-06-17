@@ -41,7 +41,7 @@
                             </v-file-input>
                         </v-col>
                         <v-col class="text-center" cols="6">
-                            <v-btn>
+                            <v-btn color="primary" @click="downloadAsPng">
                                 pngとしてエクスポート
                             </v-btn>
                         </v-col>
@@ -209,6 +209,13 @@ export default {
             //         canvas.add(group); 
             //         canvas.renderAll(); 
             //         }); 
+        },
+        downloadAsPng(){
+            const canvas=document.getElementById("canvas");
+            const a=document.createElement("a");
+            a.href=canvas.toDataURL("image/png");
+            a.download="image.png";
+            a.click();
         }
     }
 }
