@@ -37,7 +37,7 @@
                     </v-row>
                     <v-row>
                         <v-col class="text-center" cols="6">
-                            <v-file-input filled prepend-icon="mdi-camera" label="元画像" accept="image/*" placeholder="画像を選択">
+                            <v-file-input filled prepend-icon="mdi-image" label="元画像" accept="image/*" placeholder="画像を選択" clearable @change="onImageChange">
                             </v-file-input>
                         </v-col>
                         <v-col class="text-center" cols="6">
@@ -82,15 +82,6 @@ export default {
             // selectionLineWidth:2,
         });
 
-        // console.log(this.canvas.item(0));
-        // console.log(this.canvas.getObjects())
-        // this.canvas.remove(rect);
-        // console.log(this.canvas.item(0));
-        // console.log(this.canvas.getObjects())
-        // rect.set({
-        //     left:20,
-        //     top:50
-        // });
         // this.canvas.renderAll();
         // const imgElement=document.getElementById("my-image");
         // const imgInstance=new fabric.Image(imgElement,{
@@ -124,6 +115,33 @@ export default {
         }
     },
     methods:{
+        onImageChange(file){
+            if(file===undefined || file===null){
+                return;
+            }
+
+            const fr=new FileReader();
+            fr.readAsDataURL(file);
+            fr.addEventListener("load",()=>{
+                this.createImage(fr.result)
+            })
+        },
+        createImage(imgUrl){
+            fabric.Image.fromURL(imgUrl,imgObj=>{
+                imgObj.set({
+                    width:200,
+                    height:200,
+                    selectable:false,
+                });
+                this.canvas.add(imgObj);
+                this.canvas.renderAll();
+            });
+            
+        // fabric.Image.fromURL("araisan.png",function(oImg){
+        //     // oImg.scale(0.5)
+        //     canvas.add(oImg);
+        // })
+        },
         createLine(){
             const line=new fabric.Line([50,100,200,100],{
                 left:100,
