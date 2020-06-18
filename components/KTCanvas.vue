@@ -4,8 +4,10 @@
             <v-layout>
                 <v-container>
                     <v-row>
-                        <canvas id="canvas" width="600" height="600">
-                        </canvas>
+                        <div width="600" height="600">
+                            <canvas id="canvas" width="500" height="500">
+                            </canvas>
+                        </div>
                     </v-row>
                     <v-row>
                         <v-card>
@@ -101,11 +103,38 @@ export default {
         },
         createImage(imgUrl){
             fabric.Image.fromURL(imgUrl,imgObj=>{
+                // const canvasImgMaxWidth=600; //canvas内での画像サイズ
+                // const canvasImgMaxHeight=600;//canvas内での画像サイズ
+                const targetSize=500;
+
                 imgObj.set({
-                    width:200,
-                    height:200,
                     selectable:false,
                 });
+
+                const width=imgObj.get("width");
+                const height=imgObj.get("height");
+                
+                let scale;
+                if(width>height){
+                    scale=targetSize/width;
+                }else{
+                    scale=targetSize/height;
+                }
+
+                const canvasElement=document.getElementById("canvas");
+                console.log([canvasElement.width/2,canvasElement.height/2])
+                imgObj.set({
+                    scaleX:scale,
+                    scaleY:scale,
+                });
+                console.log(imgObj.get("width"))
+                console.log(this.canvas.get("width")/2-imgObj.get("width")/2)
+                imgObj.set({
+                    left:this.canvas.get("width")/2-imgObj.get("width")*imgObj.get("scaleX")/2,
+                    top:this.canvas.get("height")/2-imgObj.get("height")*imgObj.get("scaleY")/2,
+                })
+                // this.canvas.setBackgroundImage(imgObj);                
+                console.log([width,height])
                 this.canvas.add(imgObj);
                 this.canvas.renderAll();
             });
@@ -191,8 +220,8 @@ export default {
 </script>
 <style scoped>
 
-#canvas {
+/* #canvas {
     border: 1px solid lightgrey;
-}
+} */
 
 </style>
