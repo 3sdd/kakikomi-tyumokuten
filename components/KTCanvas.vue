@@ -1,24 +1,40 @@
 <template>
     <div>
-        <v-card min-height="800" min-width="800" class="mx-auto">
+        <v-card min-height="800" min-width="1200" class="mx-auto">
             <v-layout>
                 <v-container>
                     <v-row>
-                        <v-col cols="10">
-                            
-                        <div width="600" height="600">
-                            <canvas id="canvas" width="500" height="500">
-                            </canvas>
-                        </div>
+                        <v-col cols="10">                
+                            <div width="600" height="600">
+                                <canvas id="canvas" width="500" height="500">
+                                </canvas>
+                            </div>
                         </v-col>
                         <v-col cols="2">
-                            <div v-for="(userObject,index) in userObjects" :key="index">
-                                <v-card color="primary">
-                                    <v-card-text>
-                                        {{userObject.name}}
-                                    </v-card-text>
-                                </v-card>
-                            </div>
+                            <v-list>
+                                <v-list-item-group
+                                    color="white" :multiple="false">
+                                    <v-list-item v-for="(userObject,index) in userObjects" :key="index">
+                                        <v-list-item-content>
+                                            {{userObject.name}}
+                                        </v-list-item-content>
+                                        <v-list-item-action>
+                                        </v-list-item-action>
+                                        <v-list-item-icon @click="deleteObject(index)">
+                                            <v-icon>mdi-delete</v-icon>
+                                        </v-list-item-icon>
+                                    </v-list-item>
+                                </v-list-item-group>
+                            </v-list>
+                            <!-- <v-card class="pa-2" width="200" height="500" color="secondary">
+                                <div v-for="(userObject,index) in userObjects" :key="index">
+                                    <v-card color="primary">
+                                        <v-card-text>
+                                            {{userObject.name}}
+                                        </v-card-text>
+                                    </v-card>
+                                </div>
+                            </v-card> -->
                         </v-col>
                     </v-row>
                     <v-row>
@@ -324,6 +340,12 @@ export default {
             a.href=canvas.toDataURL("image/png");
             a.download="image.png";
             a.click();
+        },
+        deleteObject(index){
+            const userObject=this.userObjects[index];
+
+            this.canvas.remove(userObject.fabricObject);
+            this.userObjects.splice(index,1);
         }
     },
     computed:{
