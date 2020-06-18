@@ -4,11 +4,15 @@
             <v-layout>
                 <v-container>
                     <v-row>
-                        <v-col cols="10">                
+                        <v-col cols="8">                
                             <div width="600" height="600">
                                 <canvas id="canvas" width="500" height="500">
                                 </canvas>
                             </div>
+                        </v-col>
+                        <v-col>
+                            <v-card height="600" >
+                            </v-card>
                         </v-col>
                         <v-col cols="2">
                             <v-list color="primary">
@@ -26,15 +30,6 @@
                                     </v-list-item>
                                 </v-list-item-group>
                             </v-list>
-                            <!-- <v-card class="pa-2" width="200" height="500" color="secondary">
-                                <div v-for="(userObject,index) in userObjects" :key="index">
-                                    <v-card color="primary">
-                                        <v-card-text>
-                                            {{userObject.name}}
-                                        </v-card-text>
-                                    </v-card>
-                                </div>
-                            </v-card> -->
                         </v-col>
                     </v-row>
                     <v-row>
