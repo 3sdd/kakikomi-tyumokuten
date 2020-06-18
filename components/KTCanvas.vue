@@ -4,10 +4,22 @@
             <v-layout>
                 <v-container>
                     <v-row>
+                        <v-col cols="10">
+                            
                         <div width="600" height="600">
                             <canvas id="canvas" width="500" height="500">
                             </canvas>
                         </div>
+                        </v-col>
+                        <v-col cols="2">
+                            <div v-for="(userObject,index) in userObjects" :key="index">
+                                <v-card color="primary">
+                                    <v-card-text>
+                                        {{userObject.name}}
+                                    </v-card-text>
+                                </v-card>
+                            </div>
+                        </v-col>
                     </v-row>
                     <v-row>
                         <v-card>
@@ -71,6 +83,14 @@ import {fabric} from "fabric"
 //lineのfillが効かない
 //https://stackoverflow.com/questions/18835580/how-to-draw-a-line-on-a-canvas-using-fabric-js
 
+class UserObject{
+    constructor(name,fabricObject){
+        this.name=name;
+        this.fabricObject=fabricObject;
+    }
+}
+
+
 export default {
     mounted(){
 
@@ -86,7 +106,8 @@ export default {
     },
     data(){
         return {
-            canvas:null
+            canvas:null,
+            userObjects:[],
         }
     },
     methods:{
@@ -122,20 +143,17 @@ export default {
                 }
 
                 const canvasElement=document.getElementById("canvas");
-                console.log([canvasElement.width/2,canvasElement.height/2])
                 imgObj.set({
                     scaleX:scale,
                     scaleY:scale,
                 });
-                console.log(imgObj.get("width"))
-                console.log(this.canvas.get("width")/2-imgObj.get("width")/2)
                 imgObj.set({
                     left:this.canvas.get("width")/2-imgObj.get("width")*imgObj.get("scaleX")/2,
                     top:this.canvas.get("height")/2-imgObj.get("height")*imgObj.get("scaleY")/2,
                 })
-                // this.canvas.setBackgroundImage(imgObj);                
-                console.log([width,height])
-                this.canvas.add(imgObj);
+                this.canvas.setBackgroundImage(imgObj);
+            
+                // this.canvas.add(imgObj);
                 this.canvas.renderAll();
             });
             
@@ -146,6 +164,10 @@ export default {
                 top:100,
                 stroke:"red",
             });
+            this.userObjects.push(new UserObject(
+                "線",
+                line
+            ));
             this.canvas.add(line);
             this.canvas.renderAll();
         },
@@ -159,6 +181,11 @@ export default {
                 strokeUniform:true,
                 radius:40
             });
+            
+            this.userObjects.push(new UserObject(
+                "円",
+                circle
+            ));
             this.canvas.add(circle);
             this.canvas.renderAll();
         },
@@ -173,7 +200,10 @@ export default {
                 width:200,
                 height:50,
             });
-            
+            this.userObjects.push(new UserObject(
+                "四角形",
+                rectangle
+            ));
             this.canvas.add(rectangle);
             this.canvas.renderAll();
         },
@@ -193,6 +223,10 @@ export default {
                 height:150,
                 fill:"red"
             }).scale(0.5);
+            this.userObjects.push(new UserObject(
+                "矢印",
+                arrow
+            ));
             this.canvas.add(arrow);
             this.canvas.renderAll();
 
