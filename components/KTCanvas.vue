@@ -61,6 +61,40 @@
                         </v-col>
 
                     </v-row>
+                    <v-row>
+
+                        <v-expansion-panels>
+                            <v-expansion-panel>
+                                <v-expansion-panel-header>
+                                    キャンバス設定
+                                </v-expansion-panel-header>
+                                <v-expansion-panel-content>
+                                    <div>
+                                        <h2>
+                                            背景色
+                                        </h2>
+                                        <v-color-picker v-model="canvasBackgroundColor">
+                                        </v-color-picker>
+                                    </div>
+                                    <div>
+                                        <h2>
+                                            サイズ
+                                        </h2>
+                                        <v-container>
+                                            <v-row>
+                                                <v-col cols="6">
+                                                    <v-text-field v-model="canvasHeight" label="縦" suffix="px" :rules="canvasHeightRules"></v-text-field>
+                                                </v-col>
+                                                <v-col cols="6">
+                                                    <v-text-field v-model="canvasWidth" label="横" suffix="px" :rules="canvasWidthRules"></v-text-field>
+                                                </v-col>
+                                            </v-row>
+                                        </v-container>
+                                    </div>
+                                </v-expansion-panel-content>
+                            </v-expansion-panel>
+                        </v-expansion-panels>
+                    </v-row>
                 </v-container>
 
 
@@ -99,14 +133,56 @@ export default {
         }
 
         this.canvas=new fabric.Canvas("canvas",{
-            backgroundColor:"white",
+            backgroundColor:this.toRGBA,//名前おかしいから変えたい
             // selectionColor:"red",
             // selectionLineWidth:2,
         });
     },
+    watch:{
+        canvasBackgroundColor(){
+            console.log(this.canvasBackgroundColor)
+            console.log(this.toRGBA)
+            this.canvas.backgroundColor=this.toRGBA
+            this.canvas.renderAll()
+        },
+        canvasWidth(){
+            if(this.canvasWidth!=Number(this.canvasWidth)){
+                return;
+            }
+            if(this.canvasWidth<100 || this.canvasWidth>600){
+                return;
+            }
+            this.canvas.setWidth(this.canvasWidth);
+            this.canvas.renderAll();
+
+        },
+        canvasHeight(){
+            if(this.canvasHeight!=Number(this.canvasHeight)){
+                return;
+            }
+            if(this.canvasHeight<100 || this.canvasHeight>600){
+                return;
+            }
+            this.canvas.setHeight(this.canvasHeight);
+            this.canvas.renderAll();
+        }
+    },
     data(){
         return {
             canvas:null,
+            canvasBackgroundColor:{r:255,g:255,b:255,a:1},
+            canvasWidth:0,
+            canvasHeight:0,
+            canvasHeightRules:[
+                value=>!!value || "値を入力してください",
+                value=> (value&& value==Number(value))||"数字を入力してください",
+                value=> (value && value>=100 && value <=600) || "100px以上600px以下の値を入力してください"
+            ],
+            canvasWidthRules:[
+                value=>!!value || "値を入力してください",
+                value=> (value&& value==Number(value))||"数字を入力してください",
+                value=> (value && value>=100 && value <=600) || "100px以上600px以下の値を入力してください"
+            ],
             userObjects:[],
         }
     },
@@ -248,6 +324,11 @@ export default {
             a.href=canvas.toDataURL("image/png");
             a.download="image.png";
             a.click();
+        }
+    },
+    computed:{
+        toRGBA(){
+            return `rgba(${this.canvasBackgroundColor.r},${this.canvasBackgroundColor.g},${this.canvasBackgroundColor.b},${this.canvasBackgroundColor.a})`;
         }
     }
 }
