@@ -11,10 +11,10 @@
                             </div>
                         </v-col>
                         <v-col cols="2">
-                            <v-list>
+                            <v-list color="primary">
                                 <v-list-item-group
                                     color="white" :multiple="false">
-                                    <v-list-item v-for="(userObject,index) in userObjects" :key="index">
+                                    <v-list-item v-for="(userObject,index) in userObjects" :key="index" @click="onListItemClick(index)">
                                         <v-list-item-content>
                                             {{userObject.name}}
                                         </v-list-item-content>
@@ -346,6 +346,14 @@ export default {
 
             this.canvas.remove(userObject.fabricObject);
             this.userObjects.splice(index,1);
+        },
+        onListItemClick(index){
+            this.canvas.discardActiveObject();
+            // const select=new fabric.ActiveSelection(this.userObjects[index].fabricObject,{
+            //     canvas:this.canvas
+            // })
+            this.canvas.setActiveObject(this.userObjects[index].fabricObject);
+            this.canvas.renderAll();
         }
     },
     computed:{
