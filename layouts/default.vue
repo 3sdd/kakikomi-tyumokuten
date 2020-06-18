@@ -2,12 +2,11 @@
   <v-app dark>
 
     <v-app-bar
-      :clipped-left="clipped"
-      fixed
       app
+      hide-on-scroll
+      color="teal"
     >
-
-      <v-toolbar-title v-text="title" />
+      <v-toolbar-title v-text="title" class="white--text"/>
 
     </v-app-bar>
     <v-content>
@@ -16,13 +15,18 @@
       </v-container>
     </v-content>
  
+    <v-card height="150">
+      <v-footer
+        app
+        absolute="false"
+        class="font-weight-medium"
+      >
+        <v-col class="text-center" cols="12">
+          <span>&copy; {{ new Date().getFullYear() }} — <strong><a href="https://twitter.com/__msdd__" class="msdd-link">msdd</a></strong></span>
+        </v-col>
+      </v-footer>
+    </v-card>
 
-    <v-footer
-      :fixed="fixed"
-      app
-    >
-      <span>&copy; {{ new Date().getFullYear() }}:msdd</span>
-    </v-footer>
   </v-app>
 </template>
 
@@ -32,10 +36,23 @@ export default {
     return {
       clipped: false,
       drawer: false,
-      fixed: false,
       miniVariant: false,
       title: '書き込み注目点'
     }
   }
 }
 </script>
+<style scoped>
+a.msdd-link:link{
+  color:white;
+}
+a.msdd-link:visited{
+  color:grey;
+}
+a.msdd-link:hover{
+  color:darkgrey;
+}
+a.msdd-link:active{
+  color:white;
+}
+</style>
