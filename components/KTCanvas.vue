@@ -1,35 +1,58 @@
 <template>
     <div>
-        <v-card min-height="800" min-width="1200" class="mx-auto">
+        <v-card min-height="800" min-width="1400" class="mx-auto">
             <v-layout>
                 <v-container>
                     <v-row>
-                        <v-col cols="8">                
-                            <div width="600" height="600">
-                                <canvas id="canvas" width="500" height="500">
+                        <v-col cols="7">                
+                            <div>
+                                <canvas id="canvas" width="700" height="700">
                                 </canvas>
                             </div>
                         </v-col>
-                        <v-col>
-                            <v-card height="600" >
+                        <v-col cols="3">
+                            <v-card height="700" class="pa-2">
+                                <v-card-title>
+                                    オブジェクト設定
+                                </v-card-title>
+                                <div v-if="selectedObject!==null">
+
+                                    <v-card>
+                                        <v-card-title>
+                                            色
+                                        </v-card-title>
+                                        <v-color-picker v-model="strokeColor">
+                                        </v-color-picker>
+                                    </v-card>
+                                    <v-card class="mt-2">
+                                        <v-card-title>
+                                            線のサイズ
+                                        </v-card-title>
+                                        <v-slider label="線のサイズ" v-model="strokeSize" min="1" max="5" thumb-label="always" :thumb-size="24" class="mt-4">
+
+                                        </v-slider>
+                                    </v-card>
+                                </div>
                             </v-card>
                         </v-col>
                         <v-col cols="2">
-                            <v-list color="primary">
-                                <v-list-item-group
-                                    color="white" :multiple="false">
-                                    <v-list-item v-for="(userObject,index) in userObjects" :key="index" @click="onListItemClick(index)">
-                                        <v-list-item-content>
-                                            {{userObject.name}}
-                                        </v-list-item-content>
-                                        <v-list-item-action>
-                                        </v-list-item-action>
-                                        <v-list-item-icon @click="deleteObject(index)">
-                                            <v-icon>mdi-delete</v-icon>
-                                        </v-list-item-icon>
-                                    </v-list-item>
-                                </v-list-item-group>
-                            </v-list>
+                            <v-card height="700">
+                                <v-list>
+                                    <v-list-item-group
+                                        color="primary" :multiple="false">
+                                        <v-list-item v-for="(userObject,index) in userObjects" :key="index" @click="onListItemClick(index)">
+                                            <v-list-item-content>
+                                                {{userObject.name}}
+                                            </v-list-item-content>
+                                            <v-list-item-action>
+                                            </v-list-item-action>
+                                            <v-list-item-icon @click="deleteObject(index)">
+                                                <v-icon>mdi-delete</v-icon>
+                                            </v-list-item-icon>
+                                        </v-list-item>
+                                    </v-list-item-group>
+                                </v-list>
+                            </v-card>
                         </v-col>
                     </v-row>
                     <v-row>
@@ -135,6 +158,25 @@ class UserObject{
     }
 }
 
+function rgbaToFabricColorText(rgba){
+    console.log("rgbatofabric")
+    console.log(rgba)
+    return `rgba(${rgba.r},${rgba.g},${rgba.b},${rgba.a})`;
+}
+
+function colorTextToRgba(colorText){
+    const s=colorText.split(/[(,)]/);
+    console.log(colorText);
+    console.log(s);
+    const obj={
+        r:s[1],
+        g:s[2],
+        b:s[3],
+        a:s[4],
+    }
+    console.log(obj);
+    return obj;
+}
 
 export default {
     mounted(){
@@ -160,7 +202,7 @@ export default {
             if(this.canvasWidth!=Number(this.canvasWidth)){
                 return;
             }
-            if(this.canvasWidth<100 || this.canvasWidth>600){
+            if(this.canvasWidth<100 || this.canvasWidth>700){
                 return;
             }
             this.canvas.setWidth(this.canvasWidth);
@@ -171,10 +213,24 @@ export default {
             if(this.canvasHeight!=Number(this.canvasHeight)){
                 return;
             }
-            if(this.canvasHeight<100 || this.canvasHeight>600){
+            if(this.canvasHeight<100 || this.canvasHeight>700){
                 return;
             }
             this.canvas.setHeight(this.canvasHeight);
+            this.canvas.renderAll();
+        },
+        strokeSize(){
+            this.selectedObject.set({
+                strokeWidth:rgbaToFabricColorText(this.strokeSize),
+            });
+            this.canvas.renderAll();
+        },
+        strokeColor(){
+            console.log(this.selectedObject)
+            console.log(this.selectedObject.strokeColor)
+            this.selectedObject.set({
+                stroke:rgbaToFabricColorText(this.strokeColor),
+            });
             this.canvas.renderAll();
         }
     },
@@ -187,14 +243,19 @@ export default {
             canvasHeightRules:[
                 value=>!!value || "値を入力してください",
                 value=> (value&& value==Number(value))||"数字を入力してください",
-                value=> (value && value>=100 && value <=600) || "100px以上600px以下の値を入力してください"
+                value=> (value && value>=100 && value <=700) || "100px以上700px以下の値を入力してください"
             ],
             canvasWidthRules:[
                 value=>!!value || "値を入力してください",
                 value=> (value&& value==Number(value))||"数字を入力してください",
-                value=> (value && value>=100 && value <=600) || "100px以上600px以下の値を入力してください"
+                value=> (value && value>=100 && value <=700) || "100px以上700px以下の値を入力してください"
             ],
             userObjects:[],
+            selectedObject:null,
+            strokeSize:2,
+            strokeColor:{r:255,g:0,b:0,a:1},
+
+
         }
     },
     methods:{
@@ -249,7 +310,7 @@ export default {
             const line=new fabric.Line([50,100,200,100],{
                 left:100,
                 top:100,
-                stroke:"red",
+                stroke:"rgba(255,0,0,1)",
             });
             this.userObjects.push(new UserObject(
                 "線",
@@ -263,7 +324,7 @@ export default {
                 left:100,
                 top:100,
                 fill:"rgba(0,0,0,0)",
-                stroke:"red",
+                stroke:"rgba(255,0,0,1)",
                 strokeWidth:2,
                 strokeUniform:true,
                 radius:40
@@ -281,7 +342,7 @@ export default {
                 left:100,
                 top:100,
                 fill:"rgba(0,0,0,0)",
-                stroke:"red",
+                stroke:"rgba(255,0,0,1)",
                 strokeWidth:2,
                 strokeUniform:true,
                 width:200,
@@ -308,7 +369,7 @@ export default {
                 top:100,
                 width:150,
                 height:150,
-                fill:"red"
+                fill:"rgba(255,0,0,1)"
             }).scale(0.5);
             this.userObjects.push(new UserObject(
                 "矢印",
@@ -343,25 +404,30 @@ export default {
             this.userObjects.splice(index,1);
         },
         onListItemClick(index){
+
+            //canvasのobjectを選択する
             this.canvas.discardActiveObject();
-            // const select=new fabric.ActiveSelection(this.userObjects[index].fabricObject,{
-            //     canvas:this.canvas
-            // })
             this.canvas.setActiveObject(this.userObjects[index].fabricObject);
             this.canvas.renderAll();
+
+            //object設定を表示する objectnの情報を取得して設定しておく
+            this.selectedObject=this.userObjects[index].fabricObject;
+            this.strokeSize=this.selectedObject.get("strokeWidth");
+            this.stroke=colorTextToRgba(this.selectedObject.get("stroke"));
         }
     },
     computed:{
         toRGBA(){
-            return `rgba(${this.canvasBackgroundColor.r},${this.canvasBackgroundColor.g},${this.canvasBackgroundColor.b},${this.canvasBackgroundColor.a})`;
+            // return `rgba(${this.canvasBackgroundColor.r},${this.canvasBackgroundColor.g},${this.canvasBackgroundColor.b},${this.canvasBackgroundColor.a})`;
+            return rgbaToFabricColorText(this.canvasBackgroundColor);
         }
     }
 }
 </script>
 <style scoped>
 
-/* #canvas {
+#canvas {
     border: 1px solid lightgrey;
-} */
+}
 
 </style>
