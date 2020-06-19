@@ -413,7 +413,7 @@ export default {
             //object設定を表示する objectnの情報を取得して設定しておく
             this.selectedObject=this.userObjects[index].fabricObject;
             this.strokeWidth=this.selectedObject.get("strokeWidth");
-            this.stroke=colorTextToRgba(this.selectedObject.get("stroke"));
+            this.strokeColor=colorTextToRgba(this.selectedObject.get("stroke"));
         }
     },
     computed:{
