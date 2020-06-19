@@ -423,6 +423,9 @@ export default {
             //         }); 
         },
         downloadAsPng(){
+            this.canvas.discardActiveObject();
+            this.canvas.renderAll();
+            
             const canvas=document.getElementById("canvas");
             const a=document.createElement("a");
             a.href=canvas.toDataURL("image/png");
