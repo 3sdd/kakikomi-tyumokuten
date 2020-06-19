@@ -6,12 +6,20 @@ export default {
   ** Headers of the page
   */
   head: {
-    titleTemplate: '%s - ' + process.env.npm_package_name,
-    title: process.env.npm_package_name || '',
+    titleTemplate: '%s - ' + "注目点を書き込めるサイト",
+    title: "書き込み注目点",
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
+      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' },
+
+      { hid: 'og:site_name', property: 'og:site_name', content: '書き込み注目点' },
+      { hid: 'og:type', property: 'og:type', content: 'website' },
+      // { hid: 'og:url', property: 'og:url', content: 'https://TODO' },
+      { hid: 'og:title', property: 'og:title', content: '画像に注目ポイントを書き込むサイト' },
+      { hid: 'og:description', property: 'og:description', content: '画像に四角形を書き込める' },
+      // { hid: 'og:image', property: 'og:image', content: 'https://TODO/ogp_image.png' },
+      { name: 'twitter:card', content: 'summary' },
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
