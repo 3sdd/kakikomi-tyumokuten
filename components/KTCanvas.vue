@@ -5,7 +5,7 @@
                 <v-container>
                     <v-row>
                         <v-col cols="7">                
-                            <div>
+                            <div style="width:700px;height:700px">
                                 <canvas id="canvas" width="700" height="700">
                                 </canvas>
                             </div>
@@ -37,6 +37,9 @@
                         </v-col>
                         <v-col cols="2">
                             <v-card height="700">
+                                <v-card-title>
+                                    オブジェクト一覧
+                                </v-card-title>
                                 <v-list>
                                     <v-list-item-group
                                         color="primary" :multiple="false">
@@ -56,33 +59,34 @@
                         </v-col>
                     </v-row>
                     <v-row>
-                        
-                        <v-card class="pa-1 ml-2" width="350">
-                            <v-container>
-                                <v-row>
-                                    <div>
-                                        <v-btn color="primary" @click="createLine" class="mr-4 ml-2">
-                                            <img src="~/assets/icon-line.svg" width="32" height="32">
-                                        </v-btn>
-                                    </div>
-                                    <div>
-                                        <v-btn color="primary" @click="createCircle" class="mr-4">
-                                            <img src="~/assets/icon-circle.svg" width="32" height="32">
-                                        </v-btn>
-                                    </div>
-                                    <div>
-                                        <v-btn color="primary" @click="createRectangle" class="mr-4">
-                                            <img src="~/assets/icon-rectangle.svg" width="32" height="32">
-                                        </v-btn>
-                                    </div>
-                                    <div>
-                                        <v-btn color="primary" @click="createArrow" class="mr-4">
-                                            <img src="~/assets/icon-arrow.svg" width="32" height="32">
-                                        </v-btn>
-                                    </div>
-                                </v-row>
-                            </v-container>
-                        </v-card>
+                        <v-col cols="6" justify-center> 
+                            <v-card class="pa-1 mx-auto" width="350">
+                                <v-container>
+                                    <v-row>
+                                        <div>
+                                            <v-btn color="grey" @click="createLine" class="mr-4 ml-2" outlined="">
+                                                <img src="~/assets/icon-line.svg" width="32" height="32">
+                                            </v-btn>
+                                        </div>
+                                        <div>
+                                            <v-btn color="grey" @click="createCircle" class="mr-4" outlined="">
+                                                <img src="~/assets/icon-circle.svg" width="32" height="32">
+                                            </v-btn>
+                                        </div>
+                                        <div>
+                                            <v-btn color="grey" @click="createRectangle" class="mr-4" outlined="">
+                                                <img src="~/assets/icon-rectangle.svg" width="32" height="32">
+                                            </v-btn>
+                                        </div>
+                                        <div>
+                                            <v-btn color="grey" @click="createArrow" class="mr-4" outlined="">
+                                                <img src="~/assets/icon-arrow.svg" width="32" height="32">
+                                            </v-btn>
+                                        </div>
+                                    </v-row>
+                                </v-container>
+                            </v-card>
+                        </v-col>
                     </v-row>
                     <v-row>
                         <v-col class="text-center" cols="6">
