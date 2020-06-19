@@ -56,26 +56,27 @@
                         </v-col>
                     </v-row>
                     <v-row>
-                        <v-card>
+                        
+                        <v-card class="pa-1 ml-2" width="350">
                             <v-container>
                                 <v-row>
                                     <div>
-                                        <v-btn color="primary" @click="createLine">
+                                        <v-btn color="primary" @click="createLine" class="mr-4 ml-2">
                                             <img src="~/assets/icon-line.svg" width="32" height="32">
                                         </v-btn>
                                     </div>
                                     <div>
-                                        <v-btn color="primary" @click="createCircle">
+                                        <v-btn color="primary" @click="createCircle" class="mr-4">
                                             <img src="~/assets/icon-circle.svg" width="32" height="32">
                                         </v-btn>
                                     </div>
                                     <div>
-                                        <v-btn color="primary" @click="createRectangle">
+                                        <v-btn color="primary" @click="createRectangle" class="mr-4">
                                             <img src="~/assets/icon-rectangle.svg" width="32" height="32">
                                         </v-btn>
                                     </div>
                                     <div>
-                                        <v-btn color="primary" @click="createArrow">
+                                        <v-btn color="primary" @click="createArrow" class="mr-4">
                                             <img src="~/assets/icon-arrow.svg" width="32" height="32">
                                         </v-btn>
                                     </div>
