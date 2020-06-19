@@ -159,8 +159,9 @@ import {createDefaultLine,createDefaultCircle,createDefaultRect,createDefaultArr
 //https://stackoverflow.com/questions/18835580/how-to-draw-a-line-on-a-canvas-using-fabric-js
 
 class UserObject{
-    constructor(name,fabricObject){
+    constructor(name,type,fabricObject,){
         this.name=name;
+        this.type=type;
         this.fabricObject=fabricObject;
     }
 }
@@ -226,17 +227,33 @@ export default {
             this.canvas.renderAll();
         },
         strokeWidth(){
+            //arrow用
+            //TODO:応急措置みたいな感じで修正。直さねば
+            //arrowはstrokeWidthないので、何もしない
+            if(this.selectedObject.get("type")==="path"){
+                return;
+            }
+            
             this.selectedObject.set({
                 strokeWidth:this.strokeWidth,
             });
             this.canvas.renderAll();
         },
         strokeColor(){
-            console.log(this.selectedObject)
-            console.log(this.selectedObject.strokeColor)
+            //arrow用
+            //TODO:応急措置みたいな感じで修正。直さねば
+            //arrowだけstrokeではなく、fill
+            if(this.selectedObject.get("type")==="path"){
+                this.selectedObject.set({
+                    fill:rgbaToFabricColorText(this.strokeColor),
+                });
+                this.canvas.renderAll();
+                return;
+            }
             this.selectedObject.set({
                 stroke:rgbaToFabricColorText(this.strokeColor),
             });
+            //arrow用
             this.canvas.renderAll();
         },
         selectedObjectListItem(){
@@ -325,6 +342,7 @@ export default {
             const line=createDefaultLine();
             this.userObjects.push(new UserObject(
                 "線",
+                "line",
                 line
             ));
             const self=this;
@@ -340,6 +358,7 @@ export default {
             
             this.userObjects.push(new UserObject(
                 "円",
+                "circle",
                 circle
             ));
             const self=this;
@@ -355,6 +374,7 @@ export default {
 
             this.userObjects.push(new UserObject(
                 "四角形",
+                "rect",
                 rectangle
             ));
             const self=this;
@@ -370,6 +390,7 @@ export default {
             const arrow = createDefaultArrow();
             this.userObjects.push(new UserObject(
                 "矢印",
+                "arrow",
                 arrow
             ));
             const self=this;
@@ -414,8 +435,15 @@ export default {
 
             //object設定を表示する objectnの情報を取得して設定しておく
             this.selectedObject=this.userObjects[index].fabricObject;
-            this.strokeWidth=this.selectedObject.get("strokeWidth");
-            this.strokeColor=colorTextToRgba(this.selectedObject.get("stroke"));
+            if(this.userObjects[index].type==="arrow"){
+                // this.strokeWidth=this.selectedObject.get("strokeWidth");
+                console.log("arrow");
+                this.strokeColor=colorTextToRgba(this.selectedObject.get("fill"));
+            }else{
+                this.strokeWidth=this.selectedObject.get("strokeWidth");
+                this.strokeColor=colorTextToRgba(this.selectedObject.get("stroke"));
+            }
+
         }
     },
     computed:{
