@@ -15,7 +15,7 @@
                                 <v-card-title>
                                     オブジェクト設定
                                 </v-card-title>
-                                <div v-if="selectedObject!==null">
+                                <div v-if="selectedObject!==null&&selectedObjectListItem!==undefined">
 
                                     <v-card>
                                         <v-card-title>
@@ -42,7 +42,9 @@
                                 </v-card-title>
                                 <v-list>
                                     <v-list-item-group
-                                        color="primary" :multiple="false">
+                                        color="primary" 
+                                        :multiple="false"
+                                        v-model="selectedObjectListItem">
                                         <v-list-item v-for="(userObject,index) in userObjects" :key="index" @click="onListItemClick(index)">
                                             <v-list-item-content>
                                                 {{userObject.name}}
@@ -164,22 +166,17 @@ class UserObject{
 }
 
 function rgbaToFabricColorText(rgba){
-    console.log("rgbatofabric")
-    console.log(rgba)
     return `rgba(${rgba.r},${rgba.g},${rgba.b},${rgba.a})`;
 }
 
 function colorTextToRgba(colorText){
     const s=colorText.split(/[(,)]/);
-    console.log(colorText);
-    console.log(s);
     const obj={
         r:s[1],
         g:s[2],
         b:s[3],
         a:s[4],
     }
-    console.log(obj);
     return obj;
 }
 
@@ -195,11 +192,15 @@ export default {
             // selectionColor:"red",
             // selectionLineWidth:2,
         });
+
+        //canvasの選択解除した時、オブジェクト一覧の選択解除
+        const self=this;
+        this.canvas.on("selection:cleared",function(){
+            self.selectedObjectListItem=undefined;
+        })
     },
     watch:{
         canvasBackgroundColor(){
-            console.log(this.canvasBackgroundColor)
-            console.log(this.toRGBA)
             this.canvas.backgroundColor=this.toRGBA
             this.canvas.renderAll()
         },
@@ -237,6 +238,14 @@ export default {
                 stroke:rgbaToFabricColorText(this.strokeColor),
             });
             this.canvas.renderAll();
+        },
+        selectedObjectListItem(){
+            if(this.selectedObjectListItem===undefined){
+                this.canvas.discardActiveObject();
+                this.canvas.renderAll();
+                return;
+            }
+            console.log(this.selectedObjectListItem)
         }
     },
     data(){
@@ -260,6 +269,7 @@ export default {
             strokeWidth:2,
             strokeColor:{r:255,g:0,b:0,a:1},
 
+            selectedObjectListItem:undefined,//オブジェクトリスト用
 
         }
     },
@@ -353,10 +363,22 @@ export default {
                 width:200,
                 height:50,
             });
+
             this.userObjects.push(new UserObject(
                 "四角形",
                 rectangle
             ));
+            const self=this;
+            rectangle.on("selected",function(){
+                console.log("rect selected")
+                console.log(this);
+                const index=self.userObjects.findIndex((v)=>v.fabricObject===this);
+                console.log("index");
+                console.log(index);
+
+
+                self.selectedObjectListItem=index;
+            })
             this.canvas.add(rectangle);
             this.canvas.renderAll();
         },
