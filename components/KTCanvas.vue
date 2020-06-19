@@ -97,7 +97,7 @@
                         </v-col>
                         <v-col class="text-center" cols="6">
                             <v-btn color="primary" @click="downloadAsPng">
-                                pngとしてエクスポート
+                                画像を保存(png)
                             </v-btn>
                         </v-col>
 
