@@ -28,7 +28,7 @@
                                         <v-card-title>
                                             線のサイズ
                                         </v-card-title>
-                                        <v-slider label="線のサイズ" v-model="strokeSize" min="1" max="5" thumb-label="always" :thumb-size="24" class="mt-4">
+                                        <v-slider label="線のサイズ" v-model="strokeWidth" min="1" max="5" thumb-label="always" :thumb-size="24" class="mt-4">
 
                                         </v-slider>
                                     </v-card>
@@ -219,9 +219,9 @@ export default {
             this.canvas.setHeight(this.canvasHeight);
             this.canvas.renderAll();
         },
-        strokeSize(){
+        strokeWidth(){
             this.selectedObject.set({
-                strokeWidth:rgbaToFabricColorText(this.strokeSize),
+                strokeWidth:this.strokeWidth,
             });
             this.canvas.renderAll();
         },
@@ -252,7 +252,7 @@ export default {
             ],
             userObjects:[],
             selectedObject:null,
-            strokeSize:2,
+            strokeWidth:2,
             strokeColor:{r:255,g:0,b:0,a:1},
 
 
@@ -412,7 +412,7 @@ export default {
 
             //object設定を表示する objectnの情報を取得して設定しておく
             this.selectedObject=this.userObjects[index].fabricObject;
-            this.strokeSize=this.selectedObject.get("strokeWidth");
+            this.strokeWidth=this.selectedObject.get("strokeWidth");
             this.stroke=colorTextToRgba(this.selectedObject.get("stroke"));
         }
     },
