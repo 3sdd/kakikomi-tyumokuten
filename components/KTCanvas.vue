@@ -331,6 +331,11 @@ export default {
                 "線",
                 line
             ));
+            const self=this;
+            line.on("selected",function(){
+                const index=self.userObjects.findIndex((v)=>v.fabricObject===this);
+                self.selectedObjectListItem=index;
+            })
             this.canvas.add(line);
             this.canvas.renderAll();
         },
@@ -349,6 +354,11 @@ export default {
                 "円",
                 circle
             ));
+            const self=this;
+            circle.on("selected",function(){
+                const index=self.userObjects.findIndex((v)=>v.fabricObject===this);
+                self.selectedObjectListItem=index;
+            })
             this.canvas.add(circle);
             this.canvas.renderAll();
         },
@@ -370,13 +380,7 @@ export default {
             ));
             const self=this;
             rectangle.on("selected",function(){
-                console.log("rect selected")
-                console.log(this);
                 const index=self.userObjects.findIndex((v)=>v.fabricObject===this);
-                console.log("index");
-                console.log(index);
-
-
                 self.selectedObjectListItem=index;
             })
             this.canvas.add(rectangle);
@@ -402,6 +406,11 @@ export default {
                 "矢印",
                 arrow
             ));
+            const self=this;
+            arrow.on("selected",function(){
+                const index=self.userObjects.findIndex((v)=>v.fabricObject===this);
+                self.selectedObjectListItem=index;
+            })
             this.canvas.add(arrow);
             this.canvas.renderAll();
 
