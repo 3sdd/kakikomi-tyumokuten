@@ -44,15 +44,15 @@ export default {
 </script>
 <style scoped>
 a.msdd-link:link{
-  color:white;
+  color:black;
 }
 a.msdd-link:visited{
-  color:grey;
+  color:black;
 }
 a.msdd-link:hover{
-  color:darkgrey;
+  color:grey;
 }
 a.msdd-link:active{
-  color:white;
+  color:black
 }
 </style>
