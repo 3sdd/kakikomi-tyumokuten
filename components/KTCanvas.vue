@@ -306,7 +306,7 @@ export default {
             fabric.Image.fromURL(imgUrl,imgObj=>{
                 // const canvasImgMaxWidth=600; //canvas内での画像サイズ
                 // const canvasImgMaxHeight=600;//canvas内での画像サイズ
-                const targetSize=500;
+                const targetSize=700;
 
                 imgObj.set({
                     selectable:false,
@@ -327,12 +327,21 @@ export default {
                     scaleX:scale,
                     scaleY:scale,
                 });
+
+                
+
+                this.canvas.setBackgroundImage(imgObj);
+                // console.log(imgObj.get("width"));
+                // console.log(imgObj.get("height"));
+                // console.log(imgObj.get("scaleX"));
+                // console.log(imgObj.get("scaleY"));
+
+                this.canvas.setWidth(imgObj.get("width")*imgObj.get("scaleX"));
+                this.canvas.setHeight(imgObj.get("height")*imgObj.get("scaleY"));
                 imgObj.set({
                     left:this.canvas.get("width")/2-imgObj.get("width")*imgObj.get("scaleX")/2,
                     top:this.canvas.get("height")/2-imgObj.get("height")*imgObj.get("scaleY")/2,
                 })
-                this.canvas.setBackgroundImage(imgObj);
-            
                 // this.canvas.add(imgObj);
                 this.canvas.renderAll();
             });
