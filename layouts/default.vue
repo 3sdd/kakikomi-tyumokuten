@@ -7,7 +7,7 @@
       color="teal"
     >
       <nuxt-link to="/" class="site-name">
-        <v-toolbar-title v-text="title" class="white--text"/>
+        <v-toolbar-title v-text="title" class="white--text font-weight-bold"/>
       </nuxt-link>
 
       <v-spacer></v-spacer>
