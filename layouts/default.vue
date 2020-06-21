@@ -6,7 +6,9 @@
       hide-on-scroll
       color="teal"
     >
-      <v-toolbar-title v-text="title" class="white--text"/>
+      <nuxt-link to="/" class="site-name">
+        <v-toolbar-title v-text="title" class="white--text"/>
+      </nuxt-link>
 
     </v-app-bar>
     <v-content>
@@ -66,5 +68,9 @@ a.msdd-link:hover{
 }
 a.msdd-link:active{
   color:black
+}
+
+.site-name{
+  text-decoration: none;
 }
 </style>
