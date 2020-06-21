@@ -433,14 +433,15 @@ export default {
             this.selectActiveObjectOnCanvas(index);
 
             //object設定を表示する objectnの情報を取得して設定しておく
-            this.selectedObject=this.userObjects[index].fabricObject;
-            if(this.userObjects[index].type==="arrow"){
-                // this.strokeWidth=this.selectedObject.get("strokeWidth");
-                this.strokeColor=colorTextToRgba(this.selectedObject.get("fill"));
-            }else{
-                this.strokeWidth=this.selectedObject.get("strokeWidth");
-                this.strokeColor=colorTextToRgba(this.selectedObject.get("stroke"));
-            }
+            // this.selectedObject=this.userObjects[index].fabricObject;
+            // if(this.userObjects[index].type==="arrow"){
+            //     // this.strokeWidth=this.selectedObject.get("strokeWidth");
+            //     this.strokeColor=colorTextToRgba(this.selectedObject.get("fill"));
+            // }else{
+            //     this.strokeWidth=this.selectedObject.get("strokeWidth");
+            //     this.strokeColor=colorTextToRgba(this.selectedObject.get("stroke"));
+            // }
+            this.updateObjectSettings(index);
 
         },
         //選択状態のキャンバス上のオブジェクトをコントローラーを表示されている状態にする
@@ -476,6 +477,17 @@ export default {
             this.selectedObjectListItem=index;
             this.selectedObject=this.userObjects[index].fabricObject;
             this.selectActiveObjectOnCanvas(index);
+            this.updateObjectSettings(index);
+        },
+        updateObjectSettings(index){
+            this.selectedObject=this.userObjects[index].fabricObject;
+            if(this.userObjects[index].type==="arrow"){
+                // this.strokeWidth=this.selectedObject.get("strokeWidth");
+                this.strokeColor=colorTextToRgba(this.selectedObject.get("fill"));
+            }else{
+                this.strokeWidth=this.selectedObject.get("strokeWidth");
+                this.strokeColor=colorTextToRgba(this.selectedObject.get("stroke"));
+            }
         }
     },
     computed:{
