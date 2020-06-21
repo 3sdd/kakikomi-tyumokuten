@@ -1,12 +1,14 @@
 import {fabric} from "fabric"
 
-const defaultColor="rgba(255,0,0,1)"
+const defaultColor="rgba(255,0,0,1)";
+const defaultStrokeWidth=4;
 
 function createDefaultLine(){
     return new fabric.Line([50,100,200,100],{
         left:100,
         top:100,
         stroke:defaultColor,
+        strokeWidth:defaultStrokeWidth,
     });
 }
 
@@ -16,7 +18,7 @@ function createDefaultRect(){
         top:100,
         fill:"rgba(0,0,0,0)",
         stroke:defaultColor,
-        strokeWidth:2,
+        strokeWidth:defaultStrokeWidth,
         strokeUniform:true,
         width:200,
         height:50,
@@ -29,7 +31,7 @@ function createDefaultCircle(){
         top:100,
         fill:"rgba(0,0,0,0)",
         stroke:defaultColor,
-        strokeWidth:2,
+        strokeWidth:defaultStrokeWidth,
         strokeUniform:true,
         radius:40
     });
