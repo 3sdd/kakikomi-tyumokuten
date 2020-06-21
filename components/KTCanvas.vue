@@ -262,7 +262,6 @@ export default {
                 this.canvas.renderAll();
                 return;
             }
-            console.log(this.selectedObjectListItem)
         }
     },
     data(){
@@ -328,13 +327,7 @@ export default {
                     scaleY:scale,
                 });
 
-                
-
                 this.canvas.setBackgroundImage(imgObj);
-                // console.log(imgObj.get("width"));
-                // console.log(imgObj.get("height"));
-                // console.log(imgObj.get("scaleX"));
-                // console.log(imgObj.get("scaleY"));
 
                 this.canvas.setWidth(imgObj.get("width")*imgObj.get("scaleX"));
                 this.canvas.setHeight(imgObj.get("height")*imgObj.get("scaleY"));
@@ -437,7 +430,6 @@ export default {
             this.selectedObject=this.userObjects[index].fabricObject;
             if(this.userObjects[index].type==="arrow"){
                 // this.strokeWidth=this.selectedObject.get("strokeWidth");
-                console.log("arrow");
                 this.strokeColor=colorTextToRgba(this.selectedObject.get("fill"));
             }else{
                 this.strokeWidth=this.selectedObject.get("strokeWidth");
