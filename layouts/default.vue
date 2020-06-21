@@ -10,6 +10,15 @@
         <v-toolbar-title v-text="title" class="white--text"/>
       </nuxt-link>
 
+      <v-spacer></v-spacer>
+      <v-btn icon to="/" class="mr-2" link>
+        <v-icon color="white">mdi-home</v-icon>
+      </v-btn>
+
+      <v-btn icon to="/contact"  class="mr-2">
+        <v-icon color="white">mdi-email</v-icon>
+      </v-btn>
+
     </v-app-bar>
     <v-content>
       <v-container>
