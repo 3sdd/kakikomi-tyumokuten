@@ -30,10 +30,10 @@
             </v-col>
           </v-row>
           <v-row class="d-flex justify-center">
-              <nuxt-link to="/" class="pa-2">
+              <nuxt-link to="/" class="pa-2 msdd-link">
                 ホーム
               </nuxt-link>
-              <nuxt-link to="privacy-policy" class="pa-2">
+              <nuxt-link to="privacy-policy" class="pa-2 msdd-link">
                 プライバシー・ポリシー
               </nuxt-link>
           </v-row>
@@ -51,12 +51,15 @@ export default {
       clipped: false,
       drawer: false,
       miniVariant: false,
-      title: '書き込み注目点'
+      title: '書き込み注目点',
     }
   }
 }
 </script>
 <style scoped>
+.msdd-link{
+  text-decoration: none;
+}
 a.msdd-link:link{
   color:black;
 }
