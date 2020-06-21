@@ -348,6 +348,7 @@ export default {
                 line
             ));
             this.setEventOnSelect(line);
+            this.selectObject(line);
 
             this.canvas.add(line);
             this.canvas.renderAll();
@@ -361,6 +362,8 @@ export default {
                 circle
             ));
             this.setEventOnSelect(circle);
+            this.selectObject(circle);
+
 
             this.canvas.add(circle);
             this.canvas.renderAll();
@@ -374,6 +377,7 @@ export default {
                 rectangle
             ));
             this.setEventOnSelect(rectangle);
+            this.selectObject(rectangle);
 
             this.canvas.add(rectangle);
             this.canvas.renderAll();
@@ -387,6 +391,7 @@ export default {
                 arrow
             ));
             this.setEventOnSelect(arrow);
+            this.selectObject(arrow);
 
             this.canvas.add(arrow);
             this.canvas.renderAll();
@@ -454,8 +459,16 @@ export default {
                 const index=self.userObjects.findIndex((v)=>v.fabricObject===this);
                 self.selectedObjectListItem=index;
                 self.selectedObject=self.userObjects[index].fabricObject;
+                // selectObject
             })
         },
+        selectObject(fabricObject){
+            console.log(this.userObjects)
+            const index=this.userObjects.findIndex((v)=>v.fabricObject===fabricObject);
+            console.log(index);
+            this.selectedObjectListItem=index;
+            this.selectedObject=this.userObjects[index].fabricObject;
+        }
     },
     computed:{
         toRGBA(){
