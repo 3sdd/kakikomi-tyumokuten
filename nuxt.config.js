@@ -6,6 +6,9 @@ export default {
   ** Headers of the page
   */
   head: {
+    htmlAttrs:{
+      lang:"ja"
+    },
     titleTemplate: '%s - ' + "注目点を書き込めるサイト",
     title: "書き込み注目点",
     meta: [
@@ -22,7 +25,7 @@ export default {
       { name: 'twitter:card', content: 'summary' },
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/png', href: '/favicon-kakikomi-tyumokuten.png' }
     ]
   },
   /*
