@@ -467,7 +467,7 @@ export default {
                 const index=self.userObjects.findIndex((v)=>v.fabricObject===this);
                 self.selectedObjectListItem=index;
                 self.selectedObject=self.userObjects[index].fabricObject;
-                // selectObject
+                self.updateObjectSettings(index);
             })
         },
         selectObject(fabricObject){
