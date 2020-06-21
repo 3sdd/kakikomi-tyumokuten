@@ -67,22 +67,22 @@
                                     <v-row>
                                         <div>
                                             <v-btn color="grey" @click="createLine" class="mr-4 ml-2" outlined="">
-                                                <img src="~/assets/icon-line.svg" width="32" height="32">
+                                                <img src="~/assets/icon-line.svg" width="32" height="32" alt="線アイコン">
                                             </v-btn>
                                         </div>
                                         <div>
                                             <v-btn color="grey" @click="createCircle" class="mr-4" outlined="">
-                                                <img src="~/assets/icon-circle.svg" width="32" height="32">
+                                                <img src="~/assets/icon-circle.svg" width="32" height="32" alt="円アイコン">
                                             </v-btn>
                                         </div>
                                         <div>
                                             <v-btn color="grey" @click="createRectangle" class="mr-4" outlined="">
-                                                <img src="~/assets/icon-rectangle.svg" width="32" height="32">
+                                                <img src="~/assets/icon-rectangle.svg" width="32" height="32" alt="四角形アイコン">
                                             </v-btn>
                                         </div>
                                         <div>
                                             <v-btn color="grey" @click="createArrow" class="mr-4" outlined="">
-                                                <img src="~/assets/icon-arrow.svg" width="32" height="32">
+                                                <img src="~/assets/icon-arrow.svg" width="32" height="32" alt="矢印アイコン">
                                             </v-btn>
                                         </div>
                                     </v-row>
