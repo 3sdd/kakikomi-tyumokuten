@@ -5,8 +5,8 @@
                 <v-container>
                     <v-row>
                         <v-col cols="7">                
-                            <div style="width:700px;height:700px">
-                                <canvas id="canvas" width="700" height="700">
+                            <div style="width:700px;height:700px" @keydown.delete="onDeleteButtonDown" tabindex="0">
+                                <canvas id="canvas" width="700" height="700" >
                                 </canvas>
                             </div>
                         </v-col>
@@ -456,6 +456,17 @@ export default {
                 this.strokeColor=colorTextToRgba(this.selectedObject.get("stroke"));
             }
 
+        },
+        onDeleteButtonDown(){
+            const selected=this.selectedObject;
+            if(selected===null){
+                return;
+            }
+            const index=this.userObjects.findIndex(v=>v.fabricObject===selected);
+            if(index===-1){
+                return;
+            }
+            this.deleteObject(index);
         }
     },
     computed:{
