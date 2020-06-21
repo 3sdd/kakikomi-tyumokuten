@@ -32,6 +32,9 @@
               <nuxt-link to="privacy-policy" class="pa-2 msdd-link">
                 プライバシー・ポリシー
               </nuxt-link>
+              <nuxt-link to="contact" class="pa-2 msdd-link">
+                お問合せ
+              </nuxt-link>
           </v-row>
 
           <v-row>
