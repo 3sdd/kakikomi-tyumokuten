@@ -24,11 +24,7 @@
         class="font-weight-medium"
       >
         <v-container>
-          <v-row>
-            <v-col class="text-center" cols="12">
-              <span>&copy; {{ new Date().getFullYear() }} — <strong><a href="https://twitter.com/__msdd__" class="msdd-link">msdd</a></strong></span>
-            </v-col>
-          </v-row>
+
           <v-row class="d-flex justify-center">
               <nuxt-link to="/" class="pa-2 msdd-link">
                 ホーム
@@ -36,6 +32,12 @@
               <nuxt-link to="privacy-policy" class="pa-2 msdd-link">
                 プライバシー・ポリシー
               </nuxt-link>
+          </v-row>
+
+          <v-row>
+            <v-col class="text-center" cols="12">
+              <span>&copy; {{ new Date().getFullYear() }} — <strong><a href="https://twitter.com/__msdd__" class="msdd-link">msdd</a></strong></span>
+            </v-col>
           </v-row>
         </v-container>
       </v-footer>
