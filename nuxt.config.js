@@ -15,7 +15,8 @@ export default {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: process.env.npm_package_description || '' },
-
+      {name:"google-site-verification",content:"tHIPYpLLr35k_NsIk_Cx_uHUlzwGvMVABZYUkTD3K2s"},
+      
       { hid: 'og:site_name', property: 'og:site_name', content: '書き込み注目点' },
       { hid: 'og:type', property: 'og:type', content: 'website' },
       { hid: 'og:url', property: 'og:url', content: 'https://kakikomi-tyumokuten.vercel.app/' },
