@@ -427,9 +427,10 @@ export default {
         onListItemClick(index){
 
             //canvasのobjectを選択する
-            this.canvas.discardActiveObject();
-            this.canvas.setActiveObject(this.userObjects[index].fabricObject);
-            this.canvas.renderAll();
+            // this.canvas.discardActiveObject();
+            // this.canvas.setActiveObject(this.userObjects[index].fabricObject);
+            // this.canvas.renderAll();
+            this.selectActiveObjectOnCanvas(index);
 
             //object設定を表示する objectnの情報を取得して設定しておく
             this.selectedObject=this.userObjects[index].fabricObject;
@@ -441,6 +442,12 @@ export default {
                 this.strokeColor=colorTextToRgba(this.selectedObject.get("stroke"));
             }
 
+        },
+        //選択状態のキャンバス上のオブジェクトをコントローラーを表示されている状態にする
+        selectActiveObjectOnCanvas(index){
+            this.canvas.discardActiveObject();
+            this.canvas.setActiveObject(this.userObjects[index].fabricObject);
+            this.canvas.renderAll();
         },
         onDeleteButtonDown(){
             const selected=this.selectedObject;
@@ -468,6 +475,7 @@ export default {
             console.log(index);
             this.selectedObjectListItem=index;
             this.selectedObject=this.userObjects[index].fabricObject;
+            this.selectActiveObjectOnCanvas(index);
         }
     },
     computed:{
