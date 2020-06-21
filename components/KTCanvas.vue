@@ -15,7 +15,7 @@
                                 <v-card-title>
                                     オブジェクト設定
                                 </v-card-title>
-                                <div v-if="selectedObject!==null&&selectedObjectListItem!==undefined">
+                                <div v-if="selectedObject!==undefined&&selectedObjectListItem!==undefined">
 
                                     <v-card>
                                         <v-card-title>
@@ -282,7 +282,7 @@ export default {
                 value=> (value && value>=100 && value <=700) || "100px以上700px以下の値を入力してください"
             ],
             userObjects:[],
-            selectedObject:null,
+            selectedObject:undefined,
             strokeWidth:2,
             strokeColor:{r:255,g:0,b:0,a:1},
 
@@ -354,11 +354,8 @@ export default {
                 "line",
                 line
             ));
-            const self=this;
-            line.on("selected",function(){
-                const index=self.userObjects.findIndex((v)=>v.fabricObject===this);
-                self.selectedObjectListItem=index;
-            })
+            this.setEventOnSelect(line);
+
             this.canvas.add(line);
             this.canvas.renderAll();
         },
@@ -370,11 +367,8 @@ export default {
                 "circle",
                 circle
             ));
-            const self=this;
-            circle.on("selected",function(){
-                const index=self.userObjects.findIndex((v)=>v.fabricObject===this);
-                self.selectedObjectListItem=index;
-            })
+            this.setEventOnSelect(circle);
+
             this.canvas.add(circle);
             this.canvas.renderAll();
         },
@@ -386,11 +380,8 @@ export default {
                 "rect",
                 rectangle
             ));
-            const self=this;
-            rectangle.on("selected",function(){
-                const index=self.userObjects.findIndex((v)=>v.fabricObject===this);
-                self.selectedObjectListItem=index;
-            })
+            this.setEventOnSelect(rectangle);
+
             this.canvas.add(rectangle);
             this.canvas.renderAll();
         },
@@ -402,11 +393,8 @@ export default {
                 "arrow",
                 arrow
             ));
-            const self=this;
-            arrow.on("selected",function(){
-                const index=self.userObjects.findIndex((v)=>v.fabricObject===this);
-                self.selectedObjectListItem=index;
-            })
+            this.setEventOnSelect(arrow);
+
             this.canvas.add(arrow);
             this.canvas.renderAll();
 
@@ -467,7 +455,15 @@ export default {
                 return;
             }
             this.deleteObject(index);
-        }
+        },
+        setEventOnSelect(fabricObject){
+            const self=this;
+            fabricObject.on("selected",function(){
+                const index=self.userObjects.findIndex((v)=>v.fabricObject===this);
+                self.selectedObjectListItem=index;
+                self.selectedObject=self.userObjects[index].fabricObject;
+            })
+        },
     },
     computed:{
         toRGBA(){
