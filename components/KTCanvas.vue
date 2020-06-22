@@ -152,19 +152,14 @@
 <script>
 import {fabric} from "fabric"
 import {createDefaultLine,createDefaultCircle,createDefaultRect,createDefaultArrow} from "~/assets/js/defaultGeometry"
+import {UserObject} from "~/assets/js/userObject"
 
 //stroke を変更した時にサイズが変わる問題
 //https://stackoverflow.com/questions/49005241/maintain-strokewidth-while-scaling-in-fabric-js
 //lineのfillが効かない
 //https://stackoverflow.com/questions/18835580/how-to-draw-a-line-on-a-canvas-using-fabric-js
 
-class UserObject{
-    constructor(name,type,fabricObject,){
-        this.name=name;
-        this.type=type;
-        this.fabricObject=fabricObject;
-    }
-}
+
 
 function rgbaToFabricColorText(rgba){
     return `rgba(${rgba.r},${rgba.g},${rgba.b},${rgba.a})`;
@@ -287,13 +282,17 @@ export default {
 
             selectedObjectListItem:undefined,//オブジェクトリスト用
 
+            imageFile:null,
+
         }
     },
     methods:{
         onImageChange(file){
+            console.log(file);
             if(file===undefined || file===null){
                 return;
             }
+            this.imageFile=file;
 
             const fr=new FileReader();
             fr.readAsDataURL(file);
@@ -409,8 +408,28 @@ export default {
             //         }); 
         },
         downloadAsPng(){
+            
+
+
             this.canvas.discardActiveObject();
             this.canvas.renderAll();
+
+            //元の画像のサイズを見て、キャンバスサイズより大きい時に
+            //元の大きさと同じ仮想キャンバスを作り、そこからダウンロードする
+            const file=this.imageFile;
+            console.log(file);
+            if(file===undefined || file===null){
+                return;
+            }
+
+            const fr=new FileReader();
+            fr.readAsDataURL(file);
+            fr.addEventListener("load",()=>{
+                
+                console.log("loaded");
+
+            })
+
             
             const canvas=document.getElementById("canvas");
             const a=document.createElement("a");
