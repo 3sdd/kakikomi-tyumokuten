@@ -20,7 +20,7 @@ export default {
       { hid: 'og:site_name', property: 'og:site_name', content: '書き込み注目点' },
       { hid: 'og:type', property: 'og:type', content: 'website' },
       { hid: 'og:url', property: 'og:url', content: 'https://kakikomi-tyumokuten.vercel.app/' },
-      { hid: 'og:title', property: 'og:title', content: '画像に注目ポイントを書き込むサイト' },
+      { hid: 'og:title', property: 'og:title', content: '画像の注目ポイントを四角で囲んだ画像を作れるサイト' },
       { hid: 'og:description', property: 'og:description', content: '画像に四角形を書き込める' },
       { hid: 'og:image', property: 'og:image', content: 'https://kakikomi-tyumokuten.vercel.app/ogp_image.png' },
       { name: 'twitter:card', content: 'summary' },
