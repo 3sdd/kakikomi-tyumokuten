@@ -21,9 +21,9 @@ export default {
       { hid: 'og:type', property: 'og:type', content: 'website' },
       { hid: 'og:url', property: 'og:url', content: 'https://kakikomi-tyumokuten.vercel.app/' },
       { hid: 'og:title', property: 'og:title', content: '画像の注目ポイントを四角で囲んだ画像を作れるサイト' },
-      { hid: 'og:description', property: 'og:description', content: '画像に四角形を書き込める' },
+      { hid: 'og:description', property: 'og:description', content: '画像の中の注目して欲しいポイントを、四角や丸で囲むことで、注目点をはっきりと示せて、わかりやすくなります。そのような四角形や丸を簡単に書き込み、書き込んだ画像をダウンロードできるサイトです。' },
       { hid: 'og:image', property: 'og:image', content: 'https://kakikomi-tyumokuten.vercel.app/ogp_image.png' },
-      { name: 'twitter:card', content: 'summary' },
+      { name: 'twitter:card', content: 'summary_large_image' },
     ],
     link: [
       { rel: 'icon', type: 'image/png', href: '/favicon-kakikomi-tyumokuten.png' }
