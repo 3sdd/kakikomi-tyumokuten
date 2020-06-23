@@ -8,6 +8,10 @@
                             <div style="width:700px;height:700px" @keydown.delete="onDeleteButtonDown" tabindex="0">
                                 <canvas id="canvas" width="700" height="700" >
                                 </canvas>
+
+                            </div>
+                            <div id="virtualCanvas">
+                                
                             </div>
                         </v-col>
                         <v-col cols="3">
@@ -176,6 +180,14 @@ function colorTextToRgba(colorText){
     return obj;
 }
 
+function downloadCanvas(canvasElement){
+    const canvas=canvasElement;
+    const a=document.createElement("a");
+    a.href=canvas.toDataURL("image/png");
+    a.download="image.png";
+    a.click();
+}
+
 export default {
     mounted(){
 
@@ -288,7 +300,6 @@ export default {
     },
     methods:{
         onImageChange(file){
-            console.log(file);
             if(file===undefined || file===null){
                 return;
             }
@@ -417,7 +428,6 @@ export default {
             //元の画像のサイズを見て、キャンバスサイズより大きい時に
             //元の大きさと同じ仮想キャンバスを作り、そこからダウンロードする
             const file=this.imageFile;
-            console.log(file);
             if(file===undefined || file===null){
                 return;
             }
@@ -425,17 +435,67 @@ export default {
             const fr=new FileReader();
             fr.readAsDataURL(file);
             fr.addEventListener("load",()=>{
-                
-                console.log("loaded");
+                const imgUrl=fr.result;
+                fabric.Image.fromURL(imgUrl,imgObj=>{
+                    // const canvasImgMaxWidth=600; //canvas内での画像サイズ
+                    // const canvasImgMaxHeight=600;//canvas内での画像サイズ
+
+                    imgObj.set({
+                        selectable:false,
+                    });
+
+                    const width=imgObj.get("width");
+                    const height=imgObj.get("height");
+                    
+                    if(width>700 || height>700){
+                        //キャンバス作成
+                        const canvasElement=document.createElement("canvas");
+                        canvasElement.id="canvasForDownload"
+                        document.getElementById("virtualCanvas").appendChild(canvasElement);
+                        //fabric のキャンバス作成
+                        const canvas=new fabric.Canvas("canvasForDownload",{
+                            backgroundColor:this.toRGBA,
+                        });
+
+                    
+                        canvas.setWidth(width);
+                        canvas.setHeight(height);
+
+                        let scale=1;
+                        if(width>height){
+                            scale=width/700;
+                        }else{
+                            scale=height/700;
+                        }
+                        canvas.setBackgroundImage(imgObj);
+
+                        //オブジェクトをコピーしてキャンバス上に表示
+                        //キャンバス上のサイズを考慮する
+                        canvas.discardActiveObject();
+
+                        for(let i=0;i<this.userObjects.length;i++){
+                            const clonedObj=fabric.util.object.clone(this.userObjects[i].fabricObject)
+                            canvas.add(clonedObj);
+                        }
+
+                        canvas.setZoom(scale)
+                        canvas.backgroundImage.scaleX=1/scale;
+                        canvas.backgroundImage.scaleY=1/scale;
+
+
+                        canvas.renderAll();
+                        downloadCanvas(canvasElement)
+                        document.getElementById("virtualCanvas").innerHTML="";
+                    }else{
+                        downloadCanvas(document.getElementById("canvas"));
+                        
+                    }
+                    
+
+                });
 
             })
 
-            
-            const canvas=document.getElementById("canvas");
-            const a=document.createElement("a");
-            a.href=canvas.toDataURL("image/png");
-            a.download="image.png";
-            a.click();
         },
         deleteObject(index){
             const userObject=this.userObjects[index];
@@ -490,9 +550,9 @@ export default {
             })
         },
         selectObject(fabricObject){
-            console.log(this.userObjects)
+            // console.log(this.userObjects)
             const index=this.userObjects.findIndex((v)=>v.fabricObject===fabricObject);
-            console.log(index);
+            // console.log(index);
             this.selectedObjectListItem=index;
             this.selectedObject=this.userObjects[index].fabricObject;
             this.selectActiveObjectOnCanvas(index);
