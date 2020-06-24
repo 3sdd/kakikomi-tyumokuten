@@ -109,7 +109,7 @@
                     </v-row>
                     <v-row>
                         <v-col class="text-center" cols="6">
-                            <v-file-input filled prepend-icon="mdi-image" label="元画像" accept="image/*" placeholder="画像を選択" @change="onImageChange" v-model="imageInput">
+                            <v-file-input filled prepend-icon="mdi-image" label="元画像" accept="image/*" placeholder="画像を選択" @change="onImageChange" v-model="imageInput" v-bind:clearable="false">
                             </v-file-input>
                         </v-col>
                         <v-col class="text-center" cols="6">
