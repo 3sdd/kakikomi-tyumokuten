@@ -29,7 +29,7 @@
     <div height="100">
       <v-footer
         app
-        absolute="false"
+        absolute
         class="font-weight-medium"
       >
         <v-container>
