@@ -4,15 +4,28 @@
             <v-layout>
                 <v-container>
                     <v-row>
-                        <v-col cols="7">                
-                            <div style="width:700px;height:700px" @keydown.delete="onDeleteButtonDown" tabindex="0">
-                                <canvas id="canvas" width="700" height="700" >
-                                </canvas>
+                        <v-col cols="7">  
+                                <div style="width:700px;height:700px" @keydown.delete="onDeleteButtonDown" tabindex="0">
+                                    <v-card tile>
+                                        <canvas id="canvas" width="700" height="700" @drop.prevent="onImageDrop" @dragover.prevent>
+                                        </canvas>
+                                        <v-overlay absolute v-if="imageFile===null">
+                                            <div @drop.prevent="onImageDrop" @dragover.prevent>
+                                                <v-row style="border:dashed 5px white;width:660px;height:660px;justify-content:center" justify="center" align-content="center">
+                                                    <v-col>
+                                                        <div class="text-center" style="font-size:2rem">
+                                                            画像をドロップしてください。
+                                                        </div>
+                                                    </v-col>
+                                                </v-row>
+                                            </div>
+                                        </v-overlay>
+                                    </v-card>
+                                </div>
 
-                            </div>
-                            <div id="virtualCanvas">
-                                
-                            </div>
+                                <div id="virtualCanvas">
+  
+                                </div>
                         </v-col>
                         <v-col cols="3">
                             <v-card height="700" class="pa-2">
@@ -299,6 +312,22 @@ export default {
         }
     },
     methods:{
+        onImageDrop(event){
+
+            console.log(event);
+            console.log(event.dataTransfer.files);
+
+            const files=event.dataTransfer.files;
+            if(files===null || files.length===0){
+                return;
+            }
+
+            const file=files[0];//1つのみドラッグ可能
+
+            this.imageFile=file;
+            console.log(this.imageFile);
+            this.onImageChange(file);
+        },
         onImageChange(file){
             if(file===undefined || file===null){
                 return;
@@ -406,17 +435,7 @@ export default {
             this.canvas.add(arrow);
             this.canvas.renderAll();
 
-            // const url="http://fabricjs.com/assets/1.svg"
-            // fabric.loadSVGFromURL(url, function(objects) { 
-            //         var group = new fabric.PathGroup(objects, { 
-            //         left: 165, 
-            //         top: 100, 
-            //         width: 295, 
-            //         height: 211 
-            //         }); 
-            //         canvas.add(group); 
-            //         canvas.renderAll(); 
-            //         }); 
+
         },
         downloadAsPng(){
             
