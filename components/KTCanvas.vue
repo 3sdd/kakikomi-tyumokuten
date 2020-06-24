@@ -9,7 +9,7 @@
                                     <v-card tile>
                                         <canvas id="canvas" width="700" height="700" @drop.prevent="onImageDrop" @dragover.prevent>
                                         </canvas>
-                                        <v-overlay absolute v-if="imageFile===null">
+                                        <v-overlay absolute v-if="imageInput===null">
                                             <div @drop.prevent="onImageDrop" @dragover.prevent>
                                                 <v-row style="border:dashed 5px white;width:660px;height:660px;justify-content:center" justify="center" align-content="center">
                                                     <v-col>
@@ -109,7 +109,7 @@
                     </v-row>
                     <v-row>
                         <v-col class="text-center" cols="6">
-                            <v-file-input filled prepend-icon="mdi-image" label="元画像" accept="image/*" placeholder="画像を選択" @change="onImageChange">
+                            <v-file-input filled prepend-icon="mdi-image" label="元画像" accept="image/*" placeholder="画像を選択" @change="onImageChange" v-model="imageInput">
                             </v-file-input>
                         </v-col>
                         <v-col class="text-center" cols="6">
@@ -308,31 +308,26 @@ export default {
             selectedObjectListItem:undefined,//オブジェクトリスト用
 
             imageFile:null,
+            imageInput:null,
 
         }
     },
     methods:{
         onImageDrop(event){
-
-            console.log(event);
-            console.log(event.dataTransfer.files);
-
             const files=event.dataTransfer.files;
             if(files===null || files.length===0){
                 return;
             }
-
             const file=files[0];//1つのみドラッグ可能
 
-            this.imageFile=file;
-            console.log(this.imageFile);
             this.onImageChange(file);
         },
         onImageChange(file){
             if(file===undefined || file===null){
                 return;
             }
-            this.imageFile=file;
+            // this.imageFile=file;
+            this.imageInput=file;
 
             const fr=new FileReader();
             fr.readAsDataURL(file);
@@ -446,7 +441,7 @@ export default {
 
             //元の画像のサイズを見て、キャンバスサイズより大きい時に
             //元の大きさと同じ仮想キャンバスを作り、そこからダウンロードする
-            const file=this.imageFile;
+            const file=this.imageInput;
             if(file===undefined || file===null){
                 return;
             }
