@@ -7,8 +7,10 @@
                         <v-col cols="7">  
                                 <div style="width:700px;height:700px" @keydown.delete="onDeleteButtonDown" tabindex="0">
                                     <v-card tile>
-                                        <canvas id="canvas" width="700" height="700" @drop.prevent="onImageDrop" @dragover.prevent>
-                                        </canvas>
+                                        <div  @drop.prevent="onImageDrop" @dragover.prevent>
+                                            <canvas id="canvas" width="700" height="700" >
+                                            </canvas>
+                                        </div>
                                         <v-overlay absolute v-if="imageInput===null">
                                             <div @drop.prevent="onImageDrop" @dragover.prevent>
                                                 <v-row style="border:dashed 5px white;width:660px;height:660px;justify-content:center" justify="center" align-content="center">
