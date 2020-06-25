@@ -51,7 +51,7 @@
                                         <v-card-title>
                                             線のサイズ
                                         </v-card-title>
-                                        <v-slider label="線のサイズ" v-model="strokeWidth" min="1" max="5" thumb-label="always" :thumb-size="24" class="mt-4">
+                                        <v-slider label="線のサイズ" v-model="strokeWidth" min="1" max="10" thumb-label="always" :thumb-size="24" class="mt-4">
 
                                         </v-slider>
                                     </v-card>
