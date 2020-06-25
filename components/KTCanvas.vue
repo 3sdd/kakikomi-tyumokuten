@@ -12,15 +12,19 @@
                                             </canvas>
                                         </div>
                                         <v-overlay absolute v-if="imageInput===null">
-                                            <div @drop.prevent="onImageDrop" @dragover.prevent>
-                                                <v-row style="border:dashed 5px white;width:660px;height:660px;justify-content:center" justify="center" align-content="center">
-                                                    <v-col>
+                                            <v-container fill-height style="width:680px;height:680px;"
+                                                v-bind:class="{isDragOver}"
+                                                v-bind:style="{border:isDragOver?'dashed 5px red':'dashed 5px white'}"
+                                                @drop.prevent="onImageDrop" @dragover.prevent @dragenter="onDragEnter" @dragleave="onDragLeave"
+                                                >
+                                                <v-row>
+                                                    <v-col  justify="center">
                                                         <div class="text-center" style="font-size:2rem">
-                                                            画像をドロップしてください。
+                                                                画像をドロップしてください。
                                                         </div>
                                                     </v-col>
                                                 </v-row>
-                                            </div>
+                                            </v-container>
                                         </v-overlay>
                                     </v-card>
                                 </div>
@@ -311,10 +315,16 @@ export default {
 
             imageFile:null,
             imageInput:null,
-
+            isDragOver:false,
         }
     },
     methods:{
+        onDragEnter(){
+            this.isDragOver=true;
+        },
+        onDragLeave(){
+            this.isDragOver=false;
+        },
         onImageDrop(event){
             const files=event.dataTransfer.files;
             if(files===null || files.length===0){
@@ -597,6 +607,10 @@ export default {
 
 #canvas {
     border: 1px solid lightgrey;
+}
+
+.isDragOver{
+    border:2px dashed blue;
 }
 
 </style>
