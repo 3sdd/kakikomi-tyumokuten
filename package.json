@@ -1,6 +1,6 @@
 {
   "name": "kakikomi-tyumokuten",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "画像の中の注目して欲しいポイントを、四角や丸で囲むことで、注目点をはっきりと示せて、わかりやすくなります。そのような四角形や丸を簡単に書き込み、書き込んだ画像をダウンロードできるサイトです。",
   "author": "msdd",
   "private": true,
