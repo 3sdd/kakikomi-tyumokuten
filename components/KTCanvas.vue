@@ -179,6 +179,30 @@
                             </v-card>
                         </v-dialog>
                     </v-row>
+                    <v-row>
+                        <v-card class="pa-2" width="100%">
+                            シェアしてくださるとうれしいです！<br>
+                            <v-btn 
+                                color="blue"
+                                class="white--text"
+                                @click="tweet"
+                            >
+                                ツイートする
+                            </v-btn>
+                            <!-- <v-btn>
+                                a
+                            </v-btn> -->
+                        </v-card>
+
+                           <!-- <v-btn
+                                absolute
+                                dark
+                                fab
+                                top
+                                right
+                                color="pink"
+                            > -->
+                    </v-row>
                 </v-container>
 
 
@@ -196,7 +220,6 @@
 import {fabric} from "fabric"
 import {createDefaultLine,createDefaultCircle,createDefaultRect,createDefaultArrow} from "~/assets/js/defaultGeometry"
 import {UserObject} from "~/assets/js/userObject"
-
 //stroke を変更した時にサイズが変わる問題
 //https://stackoverflow.com/questions/49005241/maintain-strokewidth-while-scaling-in-fabric-js
 //lineのfillが効かない
@@ -656,6 +679,18 @@ export default {
                 this.strokeColor=colorTextToRgba(this.selectedObject.get("stroke"));
             }
         },
+        tweet(){
+            const link=document.createElement("a");
+
+            const text=encodeURI("楽々！画像中に注目点を書き込み！\n\n");
+            const websiteUrl=encodeURI("https://kakikomi-tyumokuten.vercel.app\n");
+            const hashtags="書き込み注目点";
+            
+            let url=`https://twitter.com/intent/tweet?text=${text}&url=${websiteUrl}&hashtags=${hashtags}`;
+            link.href=url;
+            link.target="_blank"
+            link.click();
+        }
 
     },
     computed:{
