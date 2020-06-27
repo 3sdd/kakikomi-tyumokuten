@@ -480,9 +480,11 @@ export default {
 
         },
         downloadAsPng(){
+            this.canvasCommonProcess(this.downloadCanvas);
+        },
+        canvasCommonProcess(actionFunc){
             this.canvas.discardActiveObject();
             this.canvas.renderAll();
-
             //元の画像のサイズを見て、キャンバスサイズより大きい時に
             //元の大きさと同じ仮想キャンバスを作り、そこからダウンロードする
             const file=this.imageInput;
@@ -541,86 +543,18 @@ export default {
 
                         canvas.renderAll();
                         downloadCanvas(canvasElement)
+                        actionFunc(canvasElement);
                         document.getElementById("virtualCanvas").innerHTML="";
                     }else{
-                        downloadCanvas(document.getElementById("canvas"));
+                        actionFunc(document.getElementById("canvas"));
                         
                     }
                 });
 
             })
-
         },
         copyToClipboard(){
-            console.log("copy clip")
-            this.canvas.discardActiveObject();
-            this.canvas.renderAll();
-
-            //元の画像のサイズを見て、キャンバスサイズより大きい時に
-            //元の大きさと同じ仮想キャンバスを作り、そこからダウンロードする
-            const file=this.imageInput;
-            if(file===undefined || file===null){
-                return;
-            }
-
-            const fr=new FileReader();
-            fr.readAsDataURL(file);
-            fr.addEventListener("load",()=>{
-                const imgUrl=fr.result;
-                fabric.Image.fromURL(imgUrl,imgObj=>{
-                    // const canvasImgMaxWidth=600; //canvas内での画像サイズ
-                    // const canvasImgMaxHeight=600;//canvas内での画像サイズ
-
-                    imgObj.set({
-                        selectable:false,
-                    });
-
-                    const width=imgObj.get("width");
-                    const height=imgObj.get("height");
-                    
-                    if(width>700 || height>700){
-                        //キャンバス作成
-                        const canvasElement=document.createElement("canvas");
-                        canvasElement.id="canvasForDownload"
-                        document.getElementById("virtualCanvas").appendChild(canvasElement);
-                        //fabric のキャンバス作成
-                        const canvas=new fabric.Canvas("canvasForDownload",{
-                            backgroundColor:this.toRGBA,
-                        });
-                    
-                        canvas.setWidth(width);
-                        canvas.setHeight(height);
-
-                        let scale=1;
-                        if(width>height){
-                            scale=width/700;
-                        }else{
-                            scale=height/700;
-                        }
-                        canvas.setBackgroundImage(imgObj);
-
-                        //オブジェクトをコピーしてキャンバス上に表示
-                        //キャンバス上のサイズを考慮する
-                        canvas.discardActiveObject();
-
-                        for(let i=0;i<this.userObjects.length;i++){
-                            const clonedObj=fabric.util.object.clone(this.userObjects[i].fabricObject)
-                            canvas.add(clonedObj);
-                        }
-
-                        canvas.setZoom(scale)
-                        canvas.backgroundImage.scaleX=1/scale;
-                        canvas.backgroundImage.scaleY=1/scale;
-
-                        canvas.renderAll();
-                        this.copyToClipboardFromCanvas(canvas);
-                        document.getElementById("virtualCanvas").innerHTML="";
-                    }else{
-                        this.copyToClipboardFromCanvas(canvas);
-                    }
-                });
-
-            })
+            this.canvasCommonProcess(this.copyToClipboardFromCanvas);
         },
         copyToClipboardFromCanvas(canvas){
             //https://stackoverflow.com/questions/60400589/copy-image-to-clipboard-using-javascript
