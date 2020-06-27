@@ -20,7 +20,9 @@
                                                 <v-row>
                                                     <v-col  justify="center">
                                                         <div class="text-center" style="font-size:2rem">
-                                                                画像をドロップしてください。
+                                                                <p>画像をドロップしてください。</p>
+                                                                <p>または<br>
+                                                                画像を貼り付けてください(ctr+v)</p>
                                                         </div>
                                                     </v-col>
                                                 </v-row>
@@ -126,14 +128,6 @@
 
                     </v-row>
                     <v-row>
-                        <v-col cols="6">
-                            <v-text-field label="クリップボードから画像貼り付け" filled id="pasteTextField">
-                            </v-text-field>
-                            <v-btn color="primary" @click="pasteImage">クリップボードから画像貼り付け</v-btn>
-                        </v-col>
-                        <v-spacer></v-spacer>
-                    </v-row>
-                    <v-row>
 
                         <v-expansion-panels>
                             <v-expansion-panel>
@@ -235,15 +229,16 @@ export default {
         })
 
         //text fieldに画像をペーストすると画像を読み込むようにする
-        const textField=document.getElementById("pasteTextField");
-        textField.onpaste=function(event){
-            console.log(event);
+        //元コード
+        //https://stackoverflow.com/questions/6333814/how-does-the-paste-image-from-clipboard-functionality-work-in-gmail-and-google-c
+        document.onpaste=function(event){
+            // console.log(event);
             var items = (event.clipboardData  || event.originalEvent.clipboardData).items;
-            console.log(items); // will give you the mime types
+            // console.log(items); // will give you the mime types
             // find pasted image among pasted items
             let blob = null;
             for (var i = 0; i < items.length; i++) {
-                console.log(items[i]);
+                // console.log(items[i]);
                 if (items[i].type.indexOf("image") === 0) {
                     console.log(items[i].getAsFile())
                     self.imageInput=items[i].getAsFile();
@@ -255,7 +250,7 @@ export default {
             if (blob !== null) {
                 const reader = new FileReader();
                 reader.onload = function(event) {
-                    console.log(event.target.result); // data url!
+                    // console.log(event.target.result); // data url!
                     // document.getElementById("pastedImage").src = event.target.result;
                     self.createImage(event.target.result);
                 };
@@ -356,12 +351,6 @@ export default {
         }
     },
     methods:{
-        pasteImage(){
-            console.log("paste")
-            const event=new ClipboardEvent("paste");
-            document.getElementById("pasteTextField").dispatchEvent(event);
-        },
-
         //DRAG
         onDragEnter(){
             this.isDragOver=true;
