@@ -165,6 +165,20 @@
                             </v-expansion-panel>
                         </v-expansion-panels>
                     </v-row>
+
+                    <v-row>
+                        <v-dialog v-model="copyDialog" width="500">
+                            <v-card>
+                                <v-card-title>
+                                    クリップボードへコピーしました。
+                                    <v-spacer></v-spacer>
+                                    <v-btn @click="copyDialog=false" icon color="pink">
+                                        <v-icon>mdi-close-circle-outline</v-icon>
+                                    </v-btn>
+                                </v-card-title>
+                            </v-card>
+                        </v-dialog>
+                    </v-row>
                 </v-container>
 
 
@@ -351,6 +365,8 @@ export default {
 
             imageInput:null,
             isDragOver:false,
+
+            copyDialog:false,
         }
     },
     methods:{
@@ -542,7 +558,7 @@ export default {
                         canvas.backgroundImage.scaleY=1/scale;
 
                         canvas.renderAll();
-                        downloadCanvas(canvasElement)
+                        // downloadCanvas(canvasElement)
                         actionFunc(canvasElement);
                         document.getElementById("virtualCanvas").innerHTML="";
                     }else{
@@ -564,7 +580,8 @@ export default {
                         [blob.type]:blob
                     })
                 ]).then(()=>{
-                    console.log("コピー完了")
+                    this.copyDialog=true;
+                    console.log(this.copyDialog)
                 })
             })
         },
