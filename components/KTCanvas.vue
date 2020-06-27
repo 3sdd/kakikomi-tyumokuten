@@ -20,9 +20,10 @@
                                                 <v-row>
                                                     <v-col  justify="center">
                                                         <div class="text-center" style="font-size:2rem">
-                                                                <p>画像をドロップしてください。</p>
-                                                                <p>または<br>
-                                                                画像を貼り付けてください(ctr+v)</p>
+                                                                <p>画像をドロップしてください<br>
+                                                                    または<br>
+                                                                    画像を貼り付けてください(ctr+v)
+                                                                </p>
                                                         </div>
                                                     </v-col>
                                                 </v-row>
@@ -345,7 +346,6 @@ export default {
 
             selectedObjectListItem:undefined,//オブジェクトリスト用
 
-            imageFile:null,
             imageInput:null,
             isDragOver:false,
         }
@@ -371,7 +371,6 @@ export default {
             if(file===undefined || file===null){
                 return;
             }
-            // this.imageFile=file;
             this.imageInput=file;
 
             const fr=new FileReader();
