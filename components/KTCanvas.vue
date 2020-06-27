@@ -126,6 +126,14 @@
 
                     </v-row>
                     <v-row>
+                        <v-col cols="6">
+                            <v-text-field label="クリップボードから画像貼り付け" filled id="pasteTextField">
+                            </v-text-field>
+                            <v-btn color="primary" @click="pasteImage">クリップボードから画像貼り付け</v-btn>
+                        </v-col>
+                        <v-spacer></v-spacer>
+                    </v-row>
+                    <v-row>
 
                         <v-expansion-panels>
                             <v-expansion-panel>
@@ -225,6 +233,35 @@ export default {
         this.canvas.on("selection:cleared",function(){
             self.selectedObjectListItem=undefined;
         })
+
+        //text fieldに画像をペーストすると画像を読み込むようにする
+        const textField=document.getElementById("pasteTextField");
+        textField.onpaste=function(event){
+            console.log(event);
+            var items = (event.clipboardData  || event.originalEvent.clipboardData).items;
+            console.log(items); // will give you the mime types
+            // find pasted image among pasted items
+            let blob = null;
+            for (var i = 0; i < items.length; i++) {
+                console.log(items[i]);
+                if (items[i].type.indexOf("image") === 0) {
+                    console.log(items[i].getAsFile())
+                    self.imageInput=items[i].getAsFile();
+                    blob = self.imageInput;
+                    break
+                }
+            }
+            // load image if there is a pasted image
+            if (blob !== null) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    console.log(event.target.result); // data url!
+                    // document.getElementById("pastedImage").src = event.target.result;
+                    self.createImage(event.target.result);
+                };
+                reader.readAsDataURL(blob);
+            }
+        }
     },
     watch:{
         canvasBackgroundColor(){
@@ -319,6 +356,13 @@ export default {
         }
     },
     methods:{
+        pasteImage(){
+            console.log("paste")
+            const event=new ClipboardEvent("paste");
+            document.getElementById("pasteTextField").dispatchEvent(event);
+        },
+
+        //DRAG
         onDragEnter(){
             this.isDragOver=true;
         },
@@ -599,7 +643,8 @@ export default {
         toRGBA(){
             // return `rgba(${this.canvasBackgroundColor.r},${this.canvasBackgroundColor.g},${this.canvasBackgroundColor.b},${this.canvasBackgroundColor.a})`;
             return rgbaToFabricColorText(this.canvasBackgroundColor);
-        }
+        },
+        
     }
 }
 </script>
