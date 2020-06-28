@@ -178,26 +178,29 @@
                                 </v-card-title>
                             </v-card>
                         </v-dialog>
-                    </v-row>
+                    </v-row>    
                     <v-row class="my-5">
                         <v-card class="pa-2" width="100%">
-                            <v-card-text>
+                            <v-card-text class="text-center">
                                 シェアして下さるとうれしいです！<br>
                             </v-card-text>
                             <v-card-actions>
-                                <v-btn 
-                                    color="blue"
-                                    class="white--text"
-                                    @click="tweet"
-                                >
-                                    ツイートする
-                                </v-btn>
-                                <!-- <v-btn>
-                                    a
-                                </v-btn> -->
-                                <span class="pt-2 ml-5">
-                                <a href="https://b.hatena.ne.jp/entry/s/kakikomi-tyumokuten.vercel.app" class="hatena-bookmark-button" data-hatena-bookmark-layout="basic-label-counter" data-hatena-bookmark-lang="ja" data-hatena-bookmark-width="140" data-hatena-bookmark-height="35" title="このエントリーをはてなブックマークに追加"><img src="https://b.st-hatena.com/images/v4/public/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
-                                </span>
+                                <v-layout justify-center>
+                                    <v-btn 
+                                        color="blue"
+                                        class="white--text"
+                                        @click="tweet"
+                                    >
+                                        <v-icon size="large" class="mr-1">
+                                            mdi-twitter
+                                        </v-icon>
+                                        ツイートする
+                                    </v-btn>
+
+                                    <span class="ml-5">
+                                    <a href="https://b.hatena.ne.jp/entry/s/kakikomi-tyumokuten.vercel.app" class="hatena-bookmark-button" data-hatena-bookmark-layout="basic-label-counter" data-hatena-bookmark-lang="ja" data-hatena-bookmark-width="140" data-hatena-bookmark-height="35" title="このエントリーをはてなブックマークに追加"><img src="https://b.st-hatena.com/images/v4/public/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+                                    </span>
+                                </v-layout>
                             </v-card-actions>
                         </v-card>
 
@@ -689,7 +692,7 @@ export default {
         tweet(){
             const link=document.createElement("a");
 
-            const text=encodeURI("楽々！画像中に注目点を書き込み！\n\n");
+            const text=encodeURI("楽々！画像中に注目点を書き込めるサイト！\n\n");
             const websiteUrl=encodeURI("https://kakikomi-tyumokuten.vercel.app\n");
             const hashtags="書き込み注目点";
             
