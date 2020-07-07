@@ -529,7 +529,7 @@ export default {
 
         },
         downloadAsPng(){
-            this.canvasCommonProcess(this.downloadCanvas);
+            this.canvasCommonProcess(downloadCanvas);
         },
         canvasCommonProcess(actionFunc){
             this.canvas.discardActiveObject();
@@ -592,6 +592,7 @@ export default {
 
                         canvas.renderAll();
                         // downloadCanvas(canvasElement)
+                        console.log("renderall")
                         actionFunc(canvasElement);
                         document.getElementById("virtualCanvas").innerHTML="";
                     }else{
